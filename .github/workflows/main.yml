@@ -7,9 +7,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    - uses: PavanMudigonda/lines-of-code-reporter@v1.6
+    - name: lines-of-code-reporter
+      id: loc
+      uses: PavanMudigonda/lines-of-code-reporter@6c5507f592136d1c05cb1e8c30889dc4eb5561f5
+      with:
+            directory: ${{ github.workspace }}
+    
     - uses: actions/checkout@v2
     - name: Send email
       uses: devellany/send-mail@v1.0.2
+      
       with:
           host: smtp.google.com
           account: examencloudrayan@gmail.com
@@ -17,6 +25,6 @@ jobs:
           sender: rayan
           from: examencloudrayan@gmail.com
           subject: Github Actions 
-          body: file://helloworld.js
+          body: ${{ steps.loc.outputs.total_lines }}
           attachments: '[{"path":"helloworld.js"}]'
           to: examencloudrayan@gmail.com
