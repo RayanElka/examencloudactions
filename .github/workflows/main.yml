@@ -1,0 +1,26 @@
+on:
+  push:
+    branches:
+    - main
+    - release/*
+
+
+jobs:
+    mailer:
+      name: Send email
+      runs-on: ubuntu-latest
+
+      steps:    
+      - uses: devellany/send-mailer@v1.0.2
+      - with:
+            host: smtp.google.com
+            account: examencloudrayan@gmail.com
+            password: examencloud
+            sender: rayan
+            from: examencloudrayan@gmail.com
+            to: examencloudrayan@gmail.com
+            subject: mail title.
+            body: file://helloworld.js
+            contentType: text/html
+            attachments: file://attachmets.json
+
